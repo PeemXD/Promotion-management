@@ -18,12 +18,12 @@ async function querySubTable(table, dmcCtrl, code) {
 class Promotion_Ctrl {
   constructor() {}
 
-  async getAllPromotions() {
+  async getPromotions(code) {
     return new Promise((resolve, reject) => {
       let dmcCtrl = new DMC_Ctrl(connection);
 
       // query promotion
-      dmcCtrl.select("promotion").then(async (result) => {
+      dmcCtrl.select("promotion", code).then(async (result) => {
         let promotions = [];
 
         // sort promotion

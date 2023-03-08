@@ -7,7 +7,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.get("/promotions", Rotes.handleGetAllPromotions);
+app.get("/promotions/:code", Rotes.handleGetPromotions);
 
 app.get("/promotions/checkduplicate/:code", Rotes.handleCheckDuplicate);
 

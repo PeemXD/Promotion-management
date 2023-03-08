@@ -82,3 +82,35 @@ dmcCtrl.select("promotion").then(async (result) => {
   console.log(promotions);
   resolve(JSON.stringify({ promotions: promotions }));
 });
+
+/*
+  dmcCtrl.select("promotion").then((result) => {
+    result.forEach(async (promo) =>
+  เราจะใช้ await ใน loop เราเลยใส่ async
+  อันนี้โดน skip loop เพราะ ใส่ asyc เมื่อลูปเริ่มแล้ว เราบอกมันเป็น async มันเลยข้าม
+
+  แก้โดยใช้ 
+  for (const promo of result)
+  เราจะใช้ await แต่ใช้ไม่ได้ เพราะไม่มีที่ให้ใส่ async ที่ for of
+  เราเลยต้องไปใส่ข้างบน
+  จะได้ตามนี้
+  --------------------------------ใส่ตรงนี้
+  dmcCtrl.select("promotion").then(async (result) => {
+    for (const promo of result) 
+
+*/
+
+////////////////////////////////////////////////////////////////////////
+//!   query parameter technique
+//*   api enpoint --> /promotions;
+//!   can use
+//*   http://localhost:3000/promotions?code=BIRTHDAY
+//!   sent parameter with params but not show parameter
+//*   http://localhost:3000/promotions
+//? and
+//!   URL path parameter technique
+//*   api enpoint --> /promotions/:code
+//!   can use
+//*   http://localhost:3000/promotions/code=BIRTHDAY
+//!   sent parameter with params and show parameter in path
+//*   http://localhost:3000/promotions/code

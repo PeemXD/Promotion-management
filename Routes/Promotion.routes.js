@@ -1,10 +1,10 @@
 import Promotion_Ctrl from "../Controllers/Promotion_Ctrl.js";
 
 class Rotes {
-  static handleGetAllPromotions = async (req, res) => {
+  static handleGetPromotions = async (req, res) => {
     try {
       let promotionCtrl = new Promotion_Ctrl();
-      let result = await promotionCtrl.getAllPromotions();
+      let result = await promotionCtrl.getPromotions(req.params.code);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send(err);
