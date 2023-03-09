@@ -4,7 +4,7 @@ class Rotes {
   static handleGetPromotions = async (req, res) => {
     try {
       let promotionCtrl = new Promotion_Ctrl();
-      let result = await promotionCtrl.getPromotions(req.params.code);
+      let result = await promotionCtrl.getPromotions(req.query.code);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send(err);
@@ -14,7 +14,7 @@ class Rotes {
   static handleCheckDuplicate = async (req, res) => {
     try {
       let promotionCtrl = new Promotion_Ctrl();
-      let result = await promotionCtrl.checkDuplicate(req.params.code);
+      let result = await promotionCtrl.checkDuplicate(req.query.code);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send(err);
@@ -66,7 +66,7 @@ class Rotes {
   static handleDeletePromotion = async (req, res) => {
     try {
       let promotionCtrl = new Promotion_Ctrl();
-      let result = await promotionCtrl.deletePromotion(req.params.code);
+      let result = await promotionCtrl.deletePromotion(req.query.code);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send(err);

@@ -107,6 +107,7 @@ dmcCtrl.select("promotion").then(async (result) => {
 //*   http://localhost:3000/promotions?code=BIRTHDAY
 //!   sent parameter with params but not show parameter
 //*   http://localhost:3000/promotions
+//*   req.query.code
 //? and
 //!   URL path parameter technique
 //*   api enpoint --> /promotions/:code
@@ -114,3 +115,4 @@ dmcCtrl.select("promotion").then(async (result) => {
 //*   http://localhost:3000/promotions/code=BIRTHDAY
 //!   sent parameter with params and show parameter in path
 //*   http://localhost:3000/promotions/code
+//*   req.params.code

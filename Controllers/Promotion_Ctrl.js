@@ -23,7 +23,7 @@ class Promotion_Ctrl {
       let dmcCtrl = new DMC_Ctrl(connection);
 
       // query promotion
-      dmcCtrl.select("promotion", code).then(async (result) => {
+      dmcCtrl.select("promotion", "code", code).then(async (result) => {
         let promotions = [];
 
         // sort promotion
@@ -72,7 +72,7 @@ class Promotion_Ctrl {
     return new Promise((resolve, reject) => {
       let dmcCtrl = new DMC_Ctrl(connection);
       dmcCtrl
-        .select("promotions", "code", code)
+        .select("promotion", "code", code)
         .then((result) => {
           if (result.length > 0) {
             resolve(JSON.stringify({ isDuplicate: true }));
