@@ -1,8 +1,14 @@
+import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import Rotes from "./Routes/Promotion.routes.js";
 
 const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 const port = 3000;
 
 app.use(bodyParser.json());

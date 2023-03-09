@@ -119,14 +119,9 @@ class Promotion_Ctrl {
         limit_amount,
         limitType,
       ];
-      dmcCtrl
-        .insert("promotion", col, val)
-        .then((result) => {
-          resolve(JSON.stringify({ result: result }));
-        })
-        .catch((err) => {
-          reject(JSON.stringify({ error: err }));
-        });
+      dmcCtrl.insert("promotion", col, val).catch((err) => {
+        reject(JSON.stringify({ error: err }));
+      });
 
       //! insert price_per_typeP
       for (let i = 0; i < price_per_typeP.length; i++) {
@@ -137,43 +132,29 @@ class Promotion_Ctrl {
           price_per_typeP[i].reduce_type,
           price_per_typeP[i].reduce,
         ];
-        dmcCtrl
-          .insert("price_per_typeP", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("price_per_typeP", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
 
       //! insert promotion_by_day
       for (let i = 0; i < promotion_by_day.length; i++) {
         col = ["code", "day"];
         val = [code, promotion_by_day[i].day];
-        dmcCtrl
-          .insert("promotion_by_day", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("promotion_by_day", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
 
       //! insert can_reduce
       for (let i = 0; i < can_reduce.length; i++) {
         col = ["code", "service_id"];
         val = [code, can_reduce[i].service_id];
-        dmcCtrl
-          .insert("can_reduce", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("can_reduce", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
+      resolve(JSON.stringify({ status: "success" }));
     });
   }
 
@@ -202,25 +183,15 @@ class Promotion_Ctrl {
         ["limitType", limitType],
       ];
       let where = ["code", code];
-      dmcCtrl
-        .update("promotion", set, where)
-        .then((result) => {
-          resolve(JSON.stringify({ result: result }));
-        })
-        .catch((err) => {
-          reject(JSON.stringify({ error: err }));
-        });
+      dmcCtrl.update("promotion", set, where).catch((err) => {
+        reject(JSON.stringify({ error: err }));
+      });
 
       //! update price_per_typeP
       where = ["code", code];
-      dmcCtrl
-        .delete("price_per_typeP", where)
-        .then((result) => {
-          resolve(JSON.stringify({ result: result }));
-        })
-        .catch((err) => {
-          reject(JSON.stringify({ error: err }));
-        });
+      dmcCtrl.delete("price_per_typeP", where).catch((err) => {
+        reject(JSON.stringify({ error: err }));
+      });
 
       for (let i = 0; i < price_per_typeP.length; i++) {
         let col = ["code", "type_of_car", "reduce_type", "reduce"];
@@ -230,63 +201,39 @@ class Promotion_Ctrl {
           price_per_typeP[i].reduce_type,
           price_per_typeP[i].reduce,
         ];
-        dmcCtrl
-          .insert("price_per_typeP", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("price_per_typeP", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
 
       //! update promotion_by_day
       where = ["code", code];
-      dmcCtrl
-        .delete("promotion_by_day", where)
-        .then((result) => {
-          resolve(JSON.stringify({ result: result }));
-        })
-        .catch((err) => {
-          reject(JSON.stringify({ error: err }));
-        });
+      dmcCtrl.delete("promotion_by_day", where).catch((err) => {
+        reject(JSON.stringify({ error: err }));
+      });
 
       for (let i = 0; i < promotion_by_day.length; i++) {
         let col = ["code", "day"];
         let val = [code, promotion_by_day[i].day];
-        dmcCtrl
-          .insert("promotion_by_day", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("promotion_by_day", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
 
       //! update can_reduce
       where = ["code", code];
-      dmcCtrl
-        .delete("can_reduce", where)
-        .then((result) => {
-          resolve(JSON.stringify({ result: result }));
-        })
-        .catch((err) => {
-          reject(JSON.stringify({ error: err }));
-        });
+      dmcCtrl.delete("can_reduce", where).catch((err) => {
+        reject(JSON.stringify({ error: err }));
+      });
 
       for (let i = 0; i < can_reduce.length; i++) {
         let col = ["code", "service_id"];
         let val = [code, can_reduce[i].service_id];
-        dmcCtrl
-          .insert("can_reduce", col, val)
-          .then((result) => {
-            resolve(JSON.stringify({ result: result }));
-          })
-          .catch((err) => {
-            reject(JSON.stringify({ error: err }));
-          });
+        dmcCtrl.insert("can_reduce", col, val).catch((err) => {
+          reject(JSON.stringify({ error: err }));
+        });
       }
+      resolve(JSON.stringify({ status: "success" }));
     });
   }
 
