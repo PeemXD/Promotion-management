@@ -106,7 +106,7 @@ dmcCtrl.select("promotion").then(async (result) => {
 //!   can use
 //*   http://localhost:3000/promotions?code=BIRTHDAY
 //!   sent parameter with params but not show parameter
-//*   http://localhost:3000/promotions
+//*   cd http://localhost:3000/promotions
 //*   req.query.code
 //? and
 //!   URL path parameter technique

@@ -2,6 +2,10 @@ import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import Rotes from "./Routes/Promotion.routes.js";
+import {
+  validateCode,
+  validatePromotion,
+} from "./validate/validatePromotion.js";
 
 process.on("SIGINT", () => {
   console.log("Received SIGINT. Shutting down gracefully.");
@@ -31,15 +35,15 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.get("/promotions", Rotes.handleGetPromotions);
+app.get("/promotions", validateCode, Rotes.handleGetPromotions);
 
-app.get("/promotions/checkduplicate", Rotes.handleCheckDuplicate);
+app.get("/promotions/checkduplicate", validateCode, Rotes.handleCheckDuplicate);
 
-app.post("/promotions", Rotes.handleInsertPromotion);
+app.post("/promotions", validatePromotion, Rotes.handleInsertPromotion);
 
-app.put("/promotions", Rotes.handleUpdatePromotion);
+app.put("/promotions", validatePromotion, Rotes.handleUpdatePromotion);
 
-app.delete("/promotions", Rotes.handleDeletePromotion);
+app.delete("/promotions", validateCode, Rotes.handleDeletePromotion);
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
