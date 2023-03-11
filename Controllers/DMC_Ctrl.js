@@ -3,11 +3,32 @@ class DMC_Ctrl {
     this.conn = conn;
   }
 
+  // async select(tb, col, val) {
+  //   return new Promise((resolve, reject) => {
+  //     let query = `SELECT * FROM ${tb}`;
+  //     if (col && val) {
+  //       query += ` WHERE ${col} = '${val}'`;
+  //     }
+  //     console.log(query);
+  //     this.conn.query(query, (err, result) => {
+  //       if (err) reject(err);
+  //       resolve(result);
+  //     });
+  //   });
+  // }
   async select(tb, col, val) {
     return new Promise((resolve, reject) => {
       let query = `SELECT * FROM ${tb}`;
       if (col && val) {
-        query += ` WHERE ${col} = '${val}'`;
+        if (Array.isArray(val)) {
+          // Handle multiple values
+          // map bring value in cal push in new array and convert each data that push to sting by `'${v}'`
+          const values = val.map((v) => `'${v}'`).join(` OR ${col} =`);
+          query += ` WHERE ${col} = ${values}`;
+        } else {
+          // Handle single value
+          query += ` WHERE ${col} = '${val}'`;
+        }
       }
       console.log(query);
       this.conn.query(query, (err, result) => {

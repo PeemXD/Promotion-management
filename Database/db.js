@@ -21,12 +21,19 @@ CREATE DATABASE carcare; USE carcare;
 CREATE TABLE promotion(
 	code varchar(255) NOT NULL PRIMARY KEY,
     name varchar(255) NOT NULL,
-    description varchar(255) NOT NULL,
+    descriptions varchar(255) NOT NULL,
     starttime BIGINT(11) UNSIGNED NULL,
     endtime BIGINT(11) UNSIGNED NULL,
     limitflag BOOLEAN,
     limit_amount int(11),
-    limitType varchar(255)
+    limit_type varchar(255)
+);
+
+CREATE TABLE service(
+	service_id varchar(255) NOT NULL PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  description varchar(255) NOT NULL
+  
 );
 
 CREATE TABLE price_per_typeP(
@@ -65,6 +72,20 @@ CREATE TABLE can_reduce(
   ON UPDATE CASCADE
   ON DELETE CASCADE 
 );
+
+ALTER TABLE can_reduce
+ADD CONSTRAINT crs
+        FOREIGN KEY (service_id)
+        REFERENCES service(service_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+
+INSERT INTO service(service_id, name, description)
+VALUE("88888888-0000-0000-0000-121212121210", "K Clean", "เซ็ตล้างรถ ดูดฝุ่น อบโอโซนและแว๊กภายใน"),
+      ("88888888-0000-0000-0000-121212121211", "K Clean Wax3M", "เซ็ตล้างรถ ดูดฝุ่น อบโอโซน แว๊กภายในและแว๊กเคลือบสีรถภายนอก3M"),
+      ("88888888-0000-0000-0000-121212121212", "K Clean Engine", "เซ็ตล้างรถ ดูดฝุ่น อบโอโซน ล้างและพ่นเงาห้องเครื่อง แว๊กภายในและแว๊กเคลือบสีรถภายนอก3M"),
+      ("88888888-0000-0000-0000-121212121213", "K Clean Asphalt", "เซ็ตล้างรถ ดูดฝุ่น อบโอโซน ล้างและพ่นเงาห้องเครื่อง ขัดยางมะตอย แว๊กภายในและแว๊กเคลือบสีรถภายนอก3M"),
+      ("88888888-0000-0000-0000-121212121214", "K Clean Headlight", "เซ็ตล้างรถ ดูดฝุ่น อบโอโซนและแว๊กภายใน ขัดและเคลือบไฟหน้า");
 `;
 
 connection.query(createDatabase, (err, result) => {

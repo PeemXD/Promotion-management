@@ -38,7 +38,7 @@ export const validateCode = (req, res, next) => {
   const { code } = req.body;
 
   // Check if name and age are present in the request body
-  if (code) {
+  if (!code) {
     const pattern = /^[a-zA-Z0-9]*$/;
     if (!pattern.test(code)) {
       return res.status(400).json({

@@ -27,13 +27,13 @@ class Rotes {
       let result = await promotionCtrl.insertPromotion(
         req.body.code,
         req.body.name,
-        req.body.description,
-        req.body.startTime,
-        req.body.endTime,
+        req.body.descriptions,
+        req.body.starttime,
+        req.body.endtime,
         req.body.limit_amount,
         req.body.limit_type,
         req.body.price_per_typeP,
-        req.body.promotion_by_day,
+        req.body.days,
         req.body.can_reduce
       );
       res.status(200).send(result);
@@ -48,13 +48,13 @@ class Rotes {
       let result = await promotionCtrl.updatePromotion(
         req.body.code,
         req.body.name,
-        req.body.description,
-        req.body.startTime,
-        req.body.endTime,
+        req.body.descriptions,
+        req.body.starttime,
+        req.body.endtime,
         req.body.limit_amount,
         req.body.limit_type,
         req.body.price_per_typeP,
-        req.body.promotion_by_day,
+        req.body.days,
         req.body.can_reduce
       );
       res.status(200).send(result);

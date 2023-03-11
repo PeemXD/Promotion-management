@@ -2,24 +2,24 @@ class Promotion {
   constructor(
     code,
     name,
-    description,
-    startTime,
-    endTime,
+    descriptions,
+    starttime,
+    endtime,
     limit_amount,
-    limitType,
+    limit_type,
     price_per_typeP,
-    promotion_by_day,
+    days,
     can_reduce
   ) {
     this.code = code;
     this.name = name;
-    this.description = description;
-    this.startTime = startTime;
-    this.endTime = endTime;
+    this.descriptions = descriptions;
+    this.starttime = starttime;
+    this.endtime = endtime;
     this.limit_amount = limit_amount;
-    this.limitType = limitType;
+    this.limit_type = limit_type;
     this.price_per_typeP = price_per_typeP;
-    this.promotion_by_day = promotion_by_day;
+    this.days = days;
     this.can_reduce = can_reduce;
   }
 }

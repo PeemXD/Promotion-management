@@ -2,10 +2,10 @@ import DMC_Ctrl from "./DMC_Ctrl.js";
 import Promotion from "../Models/promotion.js";
 import connection from "../Database/db.js";
 
-async function querySubTable(table, dmcCtrl, code) {
+async function querySubTable(table, dmcCtrl, col, where) {
   return new Promise((resolve, reject) => {
     dmcCtrl
-      .select(table, "code", code)
+      .select(table, col, where)
       .then((result) => {
         resolve(result);
       })
@@ -32,33 +32,43 @@ class Promotion_Ctrl {
           let price_per_typeP = await querySubTable(
             "price_per_typeP",
             dmcCtrl,
+            "code",
             promo.code
           );
 
-          // query promotion_by_day
-          let promotion_by_day = await querySubTable(
+          // query days
+          let days = await querySubTable(
             "promotion_by_day",
             dmcCtrl,
+            "code",
             promo.code
           );
 
           // query service
-          let can_reduce = await querySubTable(
+          let pre_can_reduce = await querySubTable(
             "can_reduce",
             dmcCtrl,
+            "code",
             promo.code
+          );
+
+          let can_reduce = await querySubTable(
+            "service",
+            dmcCtrl,
+            "service_id",
+            pre_can_reduce.map((s) => `${s.service_id}`)
           );
 
           let promotion = new Promotion(
             promo.code,
             promo.name,
-            promo.description,
-            promo.startTime,
-            promo.endTime,
+            promo.descriptions,
+            promo.starttime,
+            promo.endtime,
             promo.limit_amount,
-            promo.limitType,
+            promo.limit_type,
             price_per_typeP,
-            promotion_by_day,
+            days,
             can_reduce
           );
           promotions.push(promotion);
@@ -89,13 +99,13 @@ class Promotion_Ctrl {
   async insertPromotion(
     code,
     name,
-    description,
+    descriptions,
     startTime,
     endTime,
     limit_amount,
-    limitType,
+    limit_type,
     price_per_typeP,
-    promotion_by_day,
+    days,
     can_reduce
   ) {
     return new Promise((resolve, reject) => {
@@ -104,20 +114,20 @@ class Promotion_Ctrl {
       let col = [
         "code",
         "name",
-        "description",
-        "startTime",
-        "endTime",
+        "descriptions",
+        "starttime",
+        "endtime",
         "limit_amount",
-        "limitType",
+        "limit_type",
       ];
       let val = [
         code,
         name,
-        description,
+        descriptions,
         startTime,
         endTime,
         limit_amount,
-        limitType,
+        limit_type,
       ];
       dmcCtrl.insert("promotion", col, val).catch((err) => {
         reject(JSON.stringify({ error: err }));
@@ -137,10 +147,10 @@ class Promotion_Ctrl {
         });
       }
 
-      //! insert promotion_by_day
-      for (let i = 0; i < promotion_by_day.length; i++) {
+      //! insert days
+      for (let i = 0; i < days.length; i++) {
         col = ["code", "day"];
-        val = [code, promotion_by_day[i].day];
+        val = [code, days[i].day];
         dmcCtrl.insert("promotion_by_day", col, val).catch((err) => {
           reject(JSON.stringify({ error: err }));
         });
@@ -161,13 +171,13 @@ class Promotion_Ctrl {
   async updatePromotion(
     code,
     name,
-    description,
+    descriptions,
     startTime,
     endTime,
     limit_amount,
-    limitType,
+    limit_type,
     price_per_typeP,
-    promotion_by_day,
+    days,
     can_reduce
   ) {
     return new Promise((resolve, reject) => {
@@ -176,11 +186,11 @@ class Promotion_Ctrl {
       let set = [
         ["code", code],
         ["name", name],
-        ["description", description],
+        ["descriptions", descriptions],
         ["startTime", startTime],
         ["endTime", endTime],
         ["limit_amount", limit_amount],
-        ["limitType", limitType],
+        ["limit_type", limit_type],
       ];
       let where = ["code", code];
       dmcCtrl.update("promotion", set, where).catch((err) => {
@@ -206,15 +216,15 @@ class Promotion_Ctrl {
         });
       }
 
-      //! update promotion_by_day
+      //! update days
       where = ["code", code];
-      dmcCtrl.delete("promotion_by_day", where).catch((err) => {
+      dmcCtrl.delete("days", where).catch((err) => {
         reject(JSON.stringify({ error: err }));
       });
 
-      for (let i = 0; i < promotion_by_day.length; i++) {
+      for (let i = 0; i < days.length; i++) {
         let col = ["code", "day"];
-        let val = [code, promotion_by_day[i].day];
+        let val = [code, days[i].day];
         dmcCtrl.insert("promotion_by_day", col, val).catch((err) => {
           reject(JSON.stringify({ error: err }));
         });
@@ -273,7 +283,7 @@ export default Promotion_Ctrl;
 //           "reduce":"150"
 //       }
 //   ],
-//   "promotion_by_day":[
+//   "days":[
 //       {
 //       "day":"NEW_YEAR_DAY"
 //       }
