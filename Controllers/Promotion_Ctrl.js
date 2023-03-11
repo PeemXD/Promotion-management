@@ -252,9 +252,9 @@ class Promotion_Ctrl {
       let dmcCtrl = new DMC_Ctrl(connection);
       let where = ["code", code];
       dmcCtrl
-        .delete("promotions", where)
+        .delete("promotion", where)
         .then((result) => {
-          resolve(JSON.stringify({ result: result }));
+          resolve(JSON.stringify({ status: "success" }));
         })
         .catch((err) => {
           reject(JSON.stringify({ error: err }));
