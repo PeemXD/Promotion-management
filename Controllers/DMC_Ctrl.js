@@ -30,7 +30,7 @@ class DMC_Ctrl {
           query += ` WHERE ${col} = '${val}'`;
         }
       }
-      console.log(query);
+      // console.log(query);
       this.conn.query(query, (err, result) => {
         if (err) reject(err);
         resolve(result);
@@ -43,7 +43,7 @@ class DMC_Ctrl {
       let query = `INSERT INTO ${tb} (${col.join(", ")}) VALUES (${val
         .map((v) => `'${v}'`)
         .join(", ")})`;
-      console.log(query);
+      // console.log(query);
       this.conn.query(query, (err, result) => {
         if (err) reject(err);
         resolve(result);
@@ -56,7 +56,7 @@ class DMC_Ctrl {
       let query = `UPDATE ${tb} SET ${set
         .map((s) => `${s[0]} = '${s[1]}'`)
         .join(", ")} WHERE ${where[0]} = '${where[1]}'`;
-      console.log(query);
+      // console.log(query);
       this.conn.query(query, (err, result) => {
         if (err) reject(err);
         resolve(result);
@@ -67,7 +67,7 @@ class DMC_Ctrl {
   async delete(tb, where) {
     return new Promise((resolve, reject) => {
       let query = `DELETE FROM ${tb} WHERE ${where[0]} = '${where[1]}'`;
-      console.log(query);
+      // console.log(query);
       this.conn.query(query, (err, result) => {
         if (err) reject(err);
         resolve(result);

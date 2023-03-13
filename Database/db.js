@@ -24,7 +24,6 @@ CREATE TABLE promotion(
     descriptions varchar(255) NOT NULL,
     starttime BIGINT(11) UNSIGNED NULL,
     endtime BIGINT(11) UNSIGNED NULL,
-    limitflag BOOLEAN,
     limit_amount int(11),
     limit_type varchar(255)
 );
